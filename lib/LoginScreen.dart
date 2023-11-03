@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'HomePage.dart';
 
 class MyLoginScreen extends StatefulWidget {
   const MyLoginScreen({super.key, required this.title});
@@ -16,13 +17,17 @@ class _MyLoginScreenState extends State<MyLoginScreen> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: const Center(
+      body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
+            const Text(
               'You are not logged in.',
             ),
+            const SizedBox(height: 5),
+            ElevatedButton(onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const MyHomePage(title: "Home Page")));
+            }, child: const Text("Login")),
           ],
         ),
       ),
