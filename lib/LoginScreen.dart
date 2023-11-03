@@ -26,7 +26,7 @@ class _MyLoginScreenState extends State<MyLoginScreen> {
             ),
             const SizedBox(height: 5),
             ElevatedButton(onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const MyHomePage(title: "Home Page")));
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const MyHomePage(title: "Home Page")));
             }, child: const Text("Login")),
           ],
         ),
