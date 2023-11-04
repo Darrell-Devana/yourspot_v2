@@ -1,9 +1,9 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class MyLoginScreen extends StatefulWidget {
-  const MyLoginScreen({Key? key}) : super(key: key);
+  const MyLoginScreen({super.key});
 
   @override
   State<MyLoginScreen> createState() => _MyLoginScreenState();
@@ -17,9 +17,7 @@ class _MyLoginScreenState extends State<MyLoginScreen> {
     super.initState();
     _signUpRecognizer = TapGestureRecognizer()
       ..onTap = () {
-        if (kDebugMode) {
-          print("Sign up");
-        }
+        Fluttertoast.showToast(msg: "Sign up");
       };
   }
 
@@ -81,11 +79,19 @@ class _MyLoginScreenState extends State<MyLoginScreen> {
                     const TextStyle(fontSize: 16),
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Fluttertoast.showToast(msg: "Continue");
+                },
                 child: const Text(
                   "CONTINUE",
                 ),
               ),
+              const SizedBox(height: 20),
+              const Divider(
+                indent: 40,
+                endIndent: 40,
+              ),
+              const SizedBox(height: 20),
             ],
           ),
         ),

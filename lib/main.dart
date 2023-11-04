@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:yourspot_v2/homePage.dart';
-import 'loginScreen.dart';
+import 'package:yourspot_v2/home_page.dart';
+import 'login_screen.dart';
 
 void main() {
   runApp(const MyApp());
