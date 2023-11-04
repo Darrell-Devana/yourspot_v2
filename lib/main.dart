@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:yourspot_v2/HomePage.dart';
-import 'LoginScreen.dart';
+import 'package:yourspot_v2/homePage.dart';
+import 'loginScreen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,11 +17,9 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyLoginScreen(title: "Login Screen",),
+      home: const MyLoginScreen(),
       debugShowCheckedModeBanner: false,
-      routes: {
-        "/home" : (context) => const MyHomePage(title: "Home Page")
-      },
+      routes: {"/home": (context) => const MyHomePage(title: "Home Page")},
     );
   }
 }
