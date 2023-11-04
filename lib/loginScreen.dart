@@ -81,8 +81,7 @@ class _MyLoginScreenState extends State<MyLoginScreen> {
                     const TextStyle(fontSize: 16),
                   ),
                 ),
-                onPressed:
-                    null, // You can replace null with your onPressed callback
+                onPressed: () {},
                 child: const Text(
                   "CONTINUE",
                 ),
