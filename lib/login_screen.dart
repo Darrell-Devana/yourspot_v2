@@ -61,6 +61,7 @@ class _MyLoginScreenState extends State<MyLoginScreen> {
                 margin:
                     const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
                 child: const TextField(
+                  keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
                     contentPadding:
                         EdgeInsets.only(left: 20, top: 50, bottom: 50),
@@ -84,7 +85,7 @@ class _MyLoginScreenState extends State<MyLoginScreen> {
                   ),
                 ),
                 onPressed: () {
-                  Fluttertoast.showToast(msg: "Continue");
+                  Navigator.pushReplacementNamed(context, "/home");
                 },
                 child: const Text(
                   "CONTINUE",
