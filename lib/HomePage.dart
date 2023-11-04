@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class MyHomePage extends StatefulWidget {
+  static const String routeName = "/home";
   const MyHomePage({super.key, required this.title});
   final String title;
 
@@ -27,7 +28,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
+          children: [
             const Text(
               'You have pushed the button this many times:',
             ),

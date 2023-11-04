@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yourspot_v2/HomePage.dart';
 import 'LoginScreen.dart';
 
 void main() {
@@ -18,6 +19,9 @@ class MyApp extends StatelessWidget {
       ),
       home: const MyLoginScreen(title: "Login Screen",),
       debugShowCheckedModeBanner: false,
+      routes: {
+        "/home" : (context) => const MyHomePage(title: "Home Page")
+      },
     );
   }
 }
