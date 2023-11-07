@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:yourspot_v2/home_page.dart';
 import 'login_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -19,7 +25,10 @@ class MyApp extends StatelessWidget {
       ),
       home: const MyLoginScreen(),
       debugShowCheckedModeBanner: false,
-      routes: {"/home": (context) => const MyHomePage(title: "Home Page")},
+      routes: {
+        "/login": (context) => const MyLoginScreen(),
+        "/home": (context) => const MyHomePage(title: "Home Page"),
+      },
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -11,11 +12,18 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  final FirebaseAuth auth = FirebaseAuth.instance;
 
   void _incrementCounter() {
     setState(() {
       _counter++;
     });
+  }
+
+  signOut() async {
+    await auth.signOut();
+    // ignore: use_build_context_synchronously
+    Navigator.pushReplacementNamed(context, "/login");
   }
 
   @override
@@ -24,6 +32,14 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
+        actions: [
+          IconButton(
+            onPressed: () {
+              signOut();
+            },
+            icon: const Icon(Icons.logout),
+          )
+        ],
       ),
       body: Center(
         child: Column(

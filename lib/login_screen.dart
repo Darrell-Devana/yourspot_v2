@@ -1,9 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class MyLoginScreen extends StatefulWidget {
+  static const String routeName = "/login";
   const MyLoginScreen({super.key});
 
   @override
@@ -20,6 +23,27 @@ class _MyLoginScreenState extends State<MyLoginScreen> {
       ..onTap = () {
         Fluttertoast.showToast(msg: "Sign up");
       };
+  }
+
+  Future<UserCredential> signInWithGoogle() async {
+    // Trigger the authentication flow
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
+
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    // ignore: use_build_context_synchronously
+    Navigator.pushReplacementNamed(context, "/home");
+
+    // Once signed in, return the UserCredential
+    return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 
   @override
@@ -99,7 +123,7 @@ class _MyLoginScreenState extends State<MyLoginScreen> {
               const SizedBox(height: 20),
               InkWell(
                 onTap: () {
-                  Fluttertoast.showToast(msg: "Signed in with Google");
+                  signInWithGoogle();
                 },
                 child: Container(
                   width: 300,
