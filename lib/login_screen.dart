@@ -154,36 +154,6 @@ class _MyLoginScreenState extends State<MyLoginScreen> {
               const SizedBox(
                 height: 20,
               ),
-              InkWell(
-                onTap: () {
-                  Fluttertoast.showToast(msg: "Signed in with Apple");
-                },
-                child: Container(
-                  width: 300,
-                  height: 60,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black),
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  child: Row(
-                    children: [
-                      const SizedBox(
-                        width: 25,
-                      ),
-                      SvgPicture.asset(
-                        "assets/images/apple_logo.svg",
-                        height: 27,
-                      ),
-                      const Spacer(),
-                      const Text(
-                        "Sign in with Apple",
-                        style: TextStyle(fontSize: 15),
-                      ),
-                      const Spacer(),
-                    ],
-                  ),
-                ),
-              ),
             ],
           ),
         ),
