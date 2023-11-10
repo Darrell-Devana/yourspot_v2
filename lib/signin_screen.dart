@@ -27,7 +27,7 @@ class _MySigninScreenState extends State<MySigninScreen> {
     super.initState();
     _signUpRecognizer = TapGestureRecognizer()
       ..onTap = () {
-        Fluttertoast.showToast(msg: "Sign up");
+        Navigator.pushReplacementNamed(context, "/signup");
       };
     _emailUsernameController.addListener(_textFieldListener);
     _passwordController.addListener(_textFieldListener);
@@ -88,14 +88,19 @@ class _MySigninScreenState extends State<MySigninScreen> {
       // User login successful
       if (kDebugMode) {
         print("User logged in: ${userCredential.user?.email}");
-        // ignore: use_build_context_synchronously
-        Navigator.pushReplacementNamed(context, "/home");
       }
+      // ignore: use_build_context_synchronously
+      Navigator.pushReplacementNamed(context, "/home");
     } catch (e) {
       // Handle login errors
       if (kDebugMode) {
-        print("Error during login: $e");
+        print("Error during registration: $e");
+      }
+      if (e.toString().contains('The email address is badly formatted.')) {
         Fluttertoast.showToast(msg: "Invalid username or password");
+      }
+      if (e.toString().contains('email address is already in use')) {
+        Fluttertoast.showToast(msg: "Email is already in use");
       }
     }
   }
@@ -103,111 +108,109 @@ class _MySigninScreenState extends State<MySigninScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       appBar: null,
       body: SafeArea(
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 100),
-                child: SizedBox(
-                  child: SvgPicture.asset("assets/images/MUI_Logo.svg"),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 100),
+                  child: SizedBox(
+                    child: SvgPicture.asset("assets/images/MUI_Logo.svg"),
+                  ),
+                ), // Image
+                AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 300),
+                  child: _renderWidget(),
                 ),
-              ), // Image
-              AnimatedSwitcher(
-                duration: const Duration(milliseconds: 300),
-                child: _renderWidget(),
-              ),
-              FilledButton(
-                style: ButtonStyle(
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4),
+                FilledButton(
+                  style: ButtonStyle(
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                    ),
+                    fixedSize: const MaterialStatePropertyAll(
+                      Size(300, 60),
+                    ),
+                    textStyle: MaterialStateProperty.all<TextStyle>(
+                      const TextStyle(fontSize: 15),
                     ),
                   ),
-                  fixedSize: const MaterialStatePropertyAll(
-                    Size(300, 60),
-                  ),
-                  textStyle: MaterialStateProperty.all<TextStyle>(
-                    const TextStyle(fontSize: 15),
-                  ),
-                ),
-                onPressed: _isFilled
-                    ? () {
-                        _signInWithEmailAndPassword();
-                      }
-                    : () {
-                        if (_emailUsernameController.text.isEmpty) {
-                          Fluttertoast.showToast(
-                              msg: "Please input your email or username");
-                        } else if (_textFieldID == 2) {
-                          Fluttertoast.showToast(
-                              msg: "Please input your password");
-                        } else {
-                          _updateWidget();
+                  onPressed: _isFilled
+                      ? () {
+                          _signInWithEmailAndPassword();
                         }
-                      },
-                child: Text(
-                  _textFieldID == 1 ? "CONTINUE" : "SIGN IN",
-                  style: const TextStyle(fontSize: 16),
-                ),
-              ),
-              const SizedBox(height: 20),
-              RichText(
-                text: TextSpan(
-                  text: "Don't have an Account? ",
-                  style: const TextStyle(color: Colors.black, fontSize: 13),
-                  children: [
-                    TextSpan(
-                      text: "Sign up",
-                      recognizer: _signUpRecognizer,
-                      style: const TextStyle(color: Colors.blue),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 13),
-              const Divider(
-                indent: 40,
-                endIndent: 40,
-              ),
-              const SizedBox(height: 20),
-              InkWell(
-                onTap: () {
-                  signInWithGoogle();
-                },
-                child: Container(
-                  width: 300,
-                  height: 60,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black),
-                    borderRadius: BorderRadius.circular(4),
+                      : () {
+                          if (_emailUsernameController.text.isEmpty) {
+                            Fluttertoast.showToast(
+                                msg: "Please input your email or username");
+                          } else if (_textFieldID == 2) {
+                            Fluttertoast.showToast(
+                                msg: "Please input your password");
+                          } else {
+                            _updateWidget();
+                          }
+                        },
+                  child: Text(
+                    _textFieldID == 1 ? "CONTINUE" : "SIGN IN",
+                    style: const TextStyle(fontSize: 16),
                   ),
-                  child: Row(
+                ),
+                const SizedBox(height: 20),
+                RichText(
+                  text: TextSpan(
+                    text: "Don't have an Account? ",
+                    style: const TextStyle(color: Colors.black, fontSize: 13),
                     children: [
-                      const SizedBox(
-                        width: 20,
+                      TextSpan(
+                        text: "Sign up",
+                        recognizer: _signUpRecognizer,
+                        style: const TextStyle(color: Colors.blue),
                       ),
-                      SvgPicture.asset(
-                        "assets/images/google_logo.svg",
-                        height: 30,
-                      ),
-                      const Spacer(),
-                      const Text(
-                        "Sign in with Google",
-                        style: TextStyle(fontSize: 15),
-                      ),
-                      const Spacer(),
                     ],
                   ),
                 ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-            ],
+                const SizedBox(height: 13),
+                const Divider(
+                  indent: 40,
+                  endIndent: 40,
+                ),
+                const SizedBox(height: 20),
+                InkWell(
+                  onTap: () {
+                    signInWithGoogle();
+                  },
+                  child: Container(
+                    width: 300,
+                    height: 60,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: Row(
+                      children: [
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        SvgPicture.asset(
+                          "assets/images/google_logo.svg",
+                          height: 30,
+                        ),
+                        const Spacer(),
+                        const Text(
+                          "Sign in with Google",
+                          style: TextStyle(fontSize: 15),
+                        ),
+                        const Spacer(),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

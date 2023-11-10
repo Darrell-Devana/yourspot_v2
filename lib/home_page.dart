@@ -23,7 +23,7 @@ class _MyHomePageState extends State<MyHomePage> {
   signOut() async {
     await auth.signOut();
     // ignore: use_build_context_synchronously
-    Navigator.pushReplacementNamed(context, "/login");
+    Navigator.pushReplacementNamed(context, "/signin");
   }
 
   @override
