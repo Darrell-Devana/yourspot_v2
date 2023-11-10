@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yourspot_v2/home_page.dart';
-import 'login_screen.dart';
+import 'signin_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
@@ -23,10 +23,10 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyLoginScreen(),
+      home: const MySigninScreen(),
       debugShowCheckedModeBanner: false,
       routes: {
-        "/login": (context) => const MyLoginScreen(),
+        "/signin": (context) => const MySigninScreen(),
         "/home": (context) => const MyHomePage(title: "Home Page"),
       },
     );
