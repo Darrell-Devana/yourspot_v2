@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: const MySigninScreen(),
-      debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: true,
       routes: {
         "/signin": (context) => const MySigninScreen(),
         "/signup": (context) => const MySignupScreen(),

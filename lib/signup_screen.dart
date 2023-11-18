@@ -94,64 +94,14 @@ class _MySignupScreenState extends State<MySignupScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 100),
-                  child: SizedBox(
-                    child: SvgPicture.asset("assets/images/MUI_Logo.svg"),
-                  ),
-                ), // Image
+                _logo(), // Image
                 AnimatedSwitcher(
                   duration: const Duration(milliseconds: 300),
                   child: _renderWidget(),
                 ),
-                FilledButton(
-                  style: ButtonStyle(
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                    ),
-                    fixedSize: const MaterialStatePropertyAll(
-                      Size(300, 60),
-                    ),
-                    textStyle: MaterialStateProperty.all<TextStyle>(
-                      const TextStyle(fontSize: 15),
-                    ),
-                  ),
-                  onPressed: _isFilled
-                      ? () {
-                          _registerWithEmailAndPassword();
-                        }
-                      : () {
-                          if (_emailUsernameController.text.isEmpty) {
-                            Fluttertoast.showToast(
-                                msg: "Please input your email or username");
-                          } else if (_textFieldID == 2) {
-                            Fluttertoast.showToast(
-                                msg: "Please input your password");
-                          } else {
-                            _updateWidget();
-                          }
-                        },
-                  child: Text(
-                    _textFieldID == 1 ? "CONTINUE" : "SIGN UP",
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                ),
+                _signupButton(),
                 const SizedBox(height: 20),
-                RichText(
-                  text: TextSpan(
-                    text: "Already have an Account? ",
-                    style: const TextStyle(color: Colors.black, fontSize: 13),
-                    children: [
-                      TextSpan(
-                        text: "Sign in",
-                        recognizer: _signUpRecognizer,
-                        style: const TextStyle(color: Colors.blue),
-                      ),
-                    ],
-                  ),
-                ),
+                _richText(),
               ],
             ),
           ),
@@ -210,6 +160,67 @@ class _MySignupScreenState extends State<MySignupScreen> {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _richText() {
+    return RichText(
+      text: TextSpan(
+        text: "Already have an Account? ",
+        style: const TextStyle(color: Colors.black, fontSize: 13),
+        children: [
+          TextSpan(
+            text: "Sign in",
+            recognizer: _signUpRecognizer,
+            style: const TextStyle(color: Colors.blue),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _logo() {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 100),
+      child: SizedBox(
+        child: SvgPicture.asset("assets/images/MUI_Logo.svg"),
+      ),
+    );
+  }
+
+  Widget _signupButton() {
+    return FilledButton(
+      style: ButtonStyle(
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(4),
+          ),
+        ),
+        fixedSize: const MaterialStatePropertyAll(
+          Size(300, 60),
+        ),
+        textStyle: MaterialStateProperty.all<TextStyle>(
+          const TextStyle(fontSize: 15),
+        ),
+      ),
+      onPressed: _isFilled
+          ? () {
+              _registerWithEmailAndPassword();
+            }
+          : () {
+              if (_emailUsernameController.text.isEmpty) {
+                Fluttertoast.showToast(
+                    msg: "Please input your email or username");
+              } else if (_textFieldID == 2) {
+                Fluttertoast.showToast(msg: "Please input your password");
+              } else {
+                _updateWidget();
+              }
+            },
+      child: Text(
+        _textFieldID == 1 ? "CONTINUE" : "SIGN UP",
+        style: const TextStyle(fontSize: 16),
+      ),
     );
   }
 }
