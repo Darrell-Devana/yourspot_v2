@@ -30,5 +30,7 @@
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:1072529153607:ios:5abecbf83a84b52ad2db62</string>
+	<key>DATABASE_URL</key>
+	<string>https://yourspotv2-default-rtdb.asia-southeast1.firebasedatabase.app</string>
 </dict>
 </plist>

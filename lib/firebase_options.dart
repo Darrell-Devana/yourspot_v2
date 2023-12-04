@@ -54,6 +54,7 @@ class DefaultFirebaseOptions {
     appId: '1:1072529153607:android:900b134da3f8bc70d2db62',
     messagingSenderId: '1072529153607',
     projectId: 'yourspotv2',
+    databaseURL: 'https://yourspotv2-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'yourspotv2.appspot.com',
   );
 
@@ -62,7 +63,9 @@ class DefaultFirebaseOptions {
     appId: '1:1072529153607:ios:5abecbf83a84b52ad2db62',
     messagingSenderId: '1072529153607',
     projectId: 'yourspotv2',
+    databaseURL: 'https://yourspotv2-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'yourspotv2.appspot.com',
+    iosClientId: '1072529153607-ido03m8vrg11a6tabtpv9pl5njtshfeo.apps.googleusercontent.com',
     iosBundleId: 'com.example.yourspotV2',
   );
 }

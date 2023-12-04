@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "1072529153607",
+    "firebase_url": "https://yourspotv2-default-rtdb.asia-southeast1.firebasedatabase.app",
     "project_id": "yourspotv2",
     "storage_bucket": "yourspotv2.appspot.com"
   },
@@ -12,7 +13,12 @@
           "package_name": "com.example.yourspot_v2"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "1072529153607-rv5hr6vik0h2gg934mscagkegpr961kr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBNSUWZzOmnbl9wq6oDe_P6KkdW3zBlVTE"
@@ -20,7 +26,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1072529153607-hg4kq462945k5ui9fvi9biliej3ahupk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1072529153607-ido03m8vrg11a6tabtpv9pl5njtshfeo.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.yourspotV2"
+              }
+            }
+          ]
         }
       }
     }

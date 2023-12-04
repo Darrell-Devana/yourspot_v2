@@ -22,20 +22,20 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
-	<!-- Google Sign-in Section -->
-    <key>CFBundleURLTypes</key>
+	<key>CFBundleURLTypes</key>
     <array>
-    	<dict>
-    		<key>CFBundleTypeRole</key>
-    		<string>Editor</string>
-    		<key>CFBundleURLSchemes</key>
-    		<array>
-    			<!-- Copied from GoogleService-Info.plist key REVERSED_CLIENT_ID -->
-    			<string>com.googleusercontent.apps.1072529153607-ido03m8vrg11a6tabtpv9pl5njtshfeo</string>
-    		</array>
-    	</dict>
+        <dict>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+            <key>CFBundleURLName</key>
+            <string></string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>com.googleusercontent.apps.1072529153607-ido03m8vrg11a6tabtpv9pl5njtshfeo</string>
+            </array>
+        </dict>
     </array>
-    <!-- End of the Google Sign-in Section -->
+
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
