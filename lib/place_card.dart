@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'screens/place_detail.dart';
 
-class PlaceCard extends StatefulWidget {
+class PlaceCard extends StatelessWidget {
   final String id;
   final String title;
   final String imageUrl;
@@ -15,20 +15,13 @@ class PlaceCard extends StatefulWidget {
     required this.availability,
   });
 
-  @override
-  State<PlaceCard> createState() => _PlaceCardState();
-}
-
-class _PlaceCardState extends State<PlaceCard> {
-  bool isFavorite = false;
-
   void selectPlace(BuildContext context) {
     Navigator.of(context).pushNamed(
       PlaceDetail.routeName,
       arguments: {
-        'id': widget.id,
-        'title': widget.title,
-        'imageUrl': widget.imageUrl
+        'id': id,
+        'title': title,
+        'imageUrl': imageUrl,
       },
     );
   }
@@ -53,7 +46,7 @@ class _PlaceCardState extends State<PlaceCard> {
                     topRight: Radius.circular(15),
                   ),
                   child: Image.network(
-                    widget.imageUrl,
+                    imageUrl,
                     height: 150,
                     width: double.infinity,
                     fit: BoxFit.cover,
@@ -61,8 +54,9 @@ class _PlaceCardState extends State<PlaceCard> {
                 ),
                 Positioned(
                   bottom: 0,
+                  left: 0,
+                  right: 0,
                   child: Container(
-                    width: 410,
                     color: Colors.black54,
                     padding: const EdgeInsets.symmetric(
                       vertical: 5,
@@ -70,15 +64,17 @@ class _PlaceCardState extends State<PlaceCard> {
                     ),
                     child: Row(
                       children: [
-                        Text(
-                          widget.title,
-                          style: const TextStyle(
-                            fontSize: 26,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                        Expanded(
+                          child: Text(
+                            title,
+                            style: const TextStyle(
+                              fontSize: 26,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                            softWrap: true,
+                            overflow: TextOverflow.fade,
                           ),
-                          softWrap: true,
-                          overflow: TextOverflow.fade,
                         ),
                         // IconButton(
                         //   onPressed: toggleFavorite,
@@ -102,7 +98,7 @@ class _PlaceCardState extends State<PlaceCard> {
                     children: [
                       const Icon(Icons.car_repair),
                       const SizedBox(width: 6),
-                      Text('${widget.availability} Spots'),
+                      Text('$availability Spots'),
                     ],
                   ),
                 ],

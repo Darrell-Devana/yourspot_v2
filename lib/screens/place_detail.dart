@@ -114,7 +114,7 @@ class _PlaceDetailState extends State<PlaceDetail> {
                         bottom: 0,
                         child: Container(
                           width: 430,
-                          color: Colors.black54,
+                          color: Colors.black45,
                           padding: const EdgeInsets.symmetric(
                             vertical: 5,
                             horizontal: 10,
@@ -124,9 +124,9 @@ class _PlaceDetailState extends State<PlaceDetail> {
                               Text(
                                 'Available Spaces: $availableSpaces / ${parkingSpaceIds.length}',
                                 style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18,
-                                ),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
+                                    color: Colors.white),
                               ),
                               const Icon(Icons.car_repair)
                             ],
