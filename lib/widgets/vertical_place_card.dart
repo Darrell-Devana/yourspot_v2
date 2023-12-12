@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'screens/place_detail.dart';
+import '../screens/place_detail.dart';
 
-class PlaceCard extends StatelessWidget {
+class VerticalPlaceCard extends StatelessWidget {
   final String id;
   final String title;
   final String imageUrl;
   final int availability;
 
-  const PlaceCard({
+  const VerticalPlaceCard({
     super.key,
     required this.id,
     required this.title,
@@ -76,13 +76,6 @@ class PlaceCard extends StatelessWidget {
                             overflow: TextOverflow.fade,
                           ),
                         ),
-                        // IconButton(
-                        //   onPressed: toggleFavorite,
-                        //   icon: Icon(
-                        //     isFavorite ? Icons.favorite : Icons.favorite_border,
-                        //     color: isFavorite ? Colors.red : Colors.white,
-                        //   ),
-                        // ),
                       ],
                     ),
                   ),

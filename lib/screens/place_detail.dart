@@ -1,6 +1,6 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:yourspot_v2/place_data.dart';
+import 'package:yourspot_v2/models/vertical_place_data.dart';
 
 class PlaceDetail extends StatefulWidget {
   static const String routeName = '/placedetail';
@@ -14,8 +14,6 @@ class PlaceDetail extends StatefulWidget {
 class _PlaceDetailState extends State<PlaceDetail> {
   final databaseRef = FirebaseDatabase.instance.ref();
 
-  List<String> parkingSpaceIds = [];
-
   @override
   void initState() {
     super.initState();
@@ -25,30 +23,10 @@ class _PlaceDetailState extends State<PlaceDetail> {
   Widget build(BuildContext context) {
     final routeArgs =
         ModalRoute.of(context)!.settings.arguments as Map<String, String>?;
-    if (routeArgs == null) {
-      // Handle missing arguments
-      return const Center(
-        child: Text('Error: Missing arguments'),
-      );
-    }
-
-    final String? placeId = routeArgs['id'];
-    if (placeId == null) {
-      // Handle missing id
-      return const Center(
-        child: Text('Error: Missing place ID'),
-      );
-    }
-
+    final String? placeId = routeArgs!['id'];
     final String? placeImageUrl = routeArgs['imageUrl'];
-    if (placeImageUrl == null) {
-      // Handle missing image URL
-      return const Center(
-        child: Text('Error: Missing place image URL'),
-      );
-    }
-    final selectedPlace = placeList.firstWhere((place) => place.id == placeId);
 
+    final selectedPlace = placeList.firstWhere((place) => place.id == placeId);
     final mediaQuery = MediaQuery.of(context);
     final appBar = AppBar(
       backgroundColor: Theme.of(context).primaryColor,
@@ -104,7 +82,7 @@ class _PlaceDetailState extends State<PlaceDetail> {
                             height: mediaQuery.size.height * 0.2,
                             width: mediaQuery.size.width,
                             child: Image.network(
-                              placeImageUrl,
+                              placeImageUrl.toString(),
                               fit: BoxFit.cover,
                             ),
                           ),

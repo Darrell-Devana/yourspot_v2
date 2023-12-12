@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:yourspot_v2/screens/home_page.dart';
+import 'package:yourspot_v2/screens/locations.dart';
 import 'package:yourspot_v2/screens/place_detail.dart';
 import 'package:yourspot_v2/screens/signup_screen.dart';
 import 'screens/signin_screen.dart';
@@ -46,6 +47,7 @@ class MyApp extends StatelessWidget {
         "/signin": (context) => const MySigninScreen(),
         "/signup": (context) => const MySignupScreen(),
         "/home": (context) => const MyHomePage(title: "YourSpot"),
+        "/locations": (context) => const LocationsPage(title: "Locations"),
         "/placedetail": (context) => const PlaceDetail(),
       },
     );
