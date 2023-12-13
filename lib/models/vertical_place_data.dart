@@ -34,3 +34,5 @@ List<VerticalPlace> placeList = [
     availability: 5,
   ),
 ];
+
+List<VerticalPlace> favoritePlaceList = [];

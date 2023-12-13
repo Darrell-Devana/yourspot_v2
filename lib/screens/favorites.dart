@@ -2,21 +2,23 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:yourspot_v2/widgets/vertical_place_card.dart';
 import 'package:yourspot_v2/models/vertical_place_data.dart';
+import 'package:provider/provider.dart';
+import 'package:yourspot_v2/favoriteProvider.dart';
 
-class LocationsPage extends StatefulWidget {
-  static const String routeName = "/locations";
+class FavoritesPage extends StatefulWidget {
+  static const String routeName = "/favorites";
   final String title;
 
-  const LocationsPage({
+  const FavoritesPage({
     super.key,
     required this.title,
   });
 
   @override
-  State<LocationsPage> createState() => _LocationsPageState();
+  State<FavoritesPage> createState() => _FavoritesPageState();
 }
 
-class _LocationsPageState extends State<LocationsPage> {
+class _FavoritesPageState extends State<FavoritesPage> {
   final FirebaseAuth auth = FirebaseAuth.instance;
   FocusNode focusNode = FocusNode();
   List<VerticalPlace> filteredPlaces = [];
@@ -32,7 +34,8 @@ class _LocationsPageState extends State<LocationsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final place = placeList;
+    final favoritePlacesProvider = Provider.of<FavoritePlacesProvider>(context);
+    final place = favoritePlacesProvider.favoritePlaceList;
 
     return Scaffold(
       appBar: AppBar(
@@ -64,7 +67,8 @@ class _LocationsPageState extends State<LocationsPage> {
               ),
               onChanged: (value) {
                 focusNode.requestFocus();
-                List<VerticalPlace> filteredList = placeList
+                List<VerticalPlace> filteredList = favoritePlacesProvider
+                    .favoritePlaceList
                     .where((place) =>
                         place.title.toLowerCase().contains(value.toLowerCase()))
                     .toList();

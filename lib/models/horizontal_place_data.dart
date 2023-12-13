@@ -34,3 +34,5 @@ List<HorizontalPlace> placeList = [
         'https://binus.ac.id/wp-content/uploads/2019/08/WhatsApp-Image-2020-09-24-at-3.47.59-PM-2.jpeg',
   ),
 ];
+
+List<HorizontalPlace> favoritePlaceList = [];

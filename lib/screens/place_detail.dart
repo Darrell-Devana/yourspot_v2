@@ -1,6 +1,8 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:yourspot_v2/models/vertical_place_data.dart';
+import 'package:yourspot_v2/favoriteProvider.dart';
+import 'package:provider/provider.dart';
 
 class PlaceDetail extends StatefulWidget {
   static const String routeName = '/placedetail';
@@ -13,18 +15,37 @@ class PlaceDetail extends StatefulWidget {
 
 class _PlaceDetailState extends State<PlaceDetail> {
   final databaseRef = FirebaseDatabase.instance.ref();
+  var favoriteIcon = const Icon(Icons.star_border);
 
   @override
   void initState() {
     super.initState();
   }
 
+  void _addToFavorite(
+      String id, FavoritePlacesProvider favoritePlacesProvider) {
+    int index = favoritePlacesProvider.favoritePlaceList
+        .indexWhere((place) => place.id == id);
+
+    if (index != -1) {
+      favoritePlacesProvider.removeFavorite(id);
+      favoriteIcon = const Icon(Icons.star_border);
+    } else {
+      int placeIndex = placeList.indexWhere((place) => place.id == id);
+
+      if (placeIndex != -1) {
+        favoritePlacesProvider.addFavorite(placeList[placeIndex]);
+        favoriteIcon = const Icon(Icons.star);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final routeArgs =
         ModalRoute.of(context)!.settings.arguments as Map<String, String>?;
-    final String? placeId = routeArgs!['id'];
-    final String? placeImageUrl = routeArgs['imageUrl'];
+    final String placeId = routeArgs!['id'].toString();
+    final String placeImageUrl = routeArgs['imageUrl'].toString();
 
     final selectedPlace = placeList.firstWhere((place) => place.id == placeId);
     final mediaQuery = MediaQuery.of(context);
@@ -32,7 +53,23 @@ class _PlaceDetailState extends State<PlaceDetail> {
       backgroundColor: Theme.of(context).primaryColor,
       title: Text(
         selectedPlace.title,
+        style: const TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 20,
+        ),
       ),
+      actions: [
+        Consumer<FavoritePlacesProvider>(
+          builder: (context, favoritePlacesProvider, child) {
+            return IconButton(
+              onPressed: () => _addToFavorite(placeId, favoritePlacesProvider),
+              icon: favoritePlacesProvider.isFavorite(placeId)
+                  ? const Icon(Icons.star)
+                  : const Icon(Icons.star_border),
+            );
+          },
+        )
+      ],
     );
 
     return Scaffold(
@@ -69,10 +106,6 @@ class _PlaceDetailState extends State<PlaceDetail> {
                   Stack(
                     children: [
                       ClipRRect(
-                        borderRadius: const BorderRadius.only(
-                          bottomLeft: Radius.circular(16),
-                          bottomRight: Radius.circular(16),
-                        ),
                         child: ColorFiltered(
                           colorFilter: ColorFilter.mode(
                             Colors.black.withOpacity(0.6),
