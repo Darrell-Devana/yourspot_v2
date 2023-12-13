@@ -11,7 +11,7 @@ class VerticalPlace {
       required this.availability});
 }
 
-List<VerticalPlace> placeList = [
+List<VerticalPlace> verticalPlaceList = [
   VerticalPlace(
     id: 'm1',
     title: 'Syahdan Campus',
@@ -35,4 +35,4 @@ List<VerticalPlace> placeList = [
   ),
 ];
 
-List<VerticalPlace> favoritePlaceList = [];
+List<VerticalPlace> verticalFavoritePlaceList = [];

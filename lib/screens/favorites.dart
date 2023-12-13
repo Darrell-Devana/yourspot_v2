@@ -35,7 +35,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
   @override
   Widget build(BuildContext context) {
     final favoritePlacesProvider = Provider.of<FavoritePlacesProvider>(context);
-    final place = favoritePlacesProvider.favoritePlaceList;
+    final place = favoritePlacesProvider.verticalFavoritePlaceList;
 
     return Scaffold(
       appBar: AppBar(
@@ -68,7 +68,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
               onChanged: (value) {
                 focusNode.requestFocus();
                 List<VerticalPlace> filteredList = favoritePlacesProvider
-                    .favoritePlaceList
+                    .verticalFavoritePlaceList
                     .where((place) =>
                         place.title.toLowerCase().contains(value.toLowerCase()))
                     .toList();

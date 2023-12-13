@@ -32,7 +32,7 @@ class _LocationsPageState extends State<LocationsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final place = placeList;
+    final place = verticalPlaceList;
 
     return Scaffold(
       appBar: AppBar(
@@ -64,7 +64,7 @@ class _LocationsPageState extends State<LocationsPage> {
               ),
               onChanged: (value) {
                 focusNode.requestFocus();
-                List<VerticalPlace> filteredList = placeList
+                List<VerticalPlace> filteredList = verticalPlaceList
                     .where((place) =>
                         place.title.toLowerCase().contains(value.toLowerCase()))
                     .toList();

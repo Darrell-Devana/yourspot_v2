@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_profile_picture/flutter_profile_picture.dart';
 import 'package:yourspot_v2/models/horizontal_place_data.dart';
 import 'package:yourspot_v2/widgets/horizontal_place_card.dart';
+import 'package:provider/provider.dart';
+import 'package:yourspot_v2/favoriteProvider.dart';
 
 class MyHomePage extends StatefulWidget {
   static const String routeName = "/home";
@@ -23,6 +25,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final favoritePlacesProvider = Provider.of<FavoritePlacesProvider>(context);
+    final favoritePlace = favoritePlacesProvider.horizontalFavoriteList;
     final appbar = AppBar(
       backgroundColor: Theme.of(context).primaryColor,
       centerTitle: false,
@@ -91,55 +95,6 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: appbar,
       body: Column(
         children: [
-          const SizedBox(
-            height: 8,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Padding(
-                padding: EdgeInsets.only(left: 12.0, top: 18),
-                child: Text(
-                  'Favorites',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 12.0, top: 18),
-                child: InkWell(
-                  onTap: () => Navigator.pushNamed(context, "/favorites"),
-                  child: const Text(
-                    'More',
-                    style: TextStyle(
-                      color: Colors.blue,
-                      fontSize: 16,
-                    ),
-                  ),
-                ),
-              )
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 18),
-            child: SizedBox(
-              height: 200,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  return HorizontalPlaceCard(
-                    id: placeList[index].id,
-                    title: placeList[index].title,
-                    imageUrl: placeList[index].imageUrl,
-                    subtitle: placeList[index].subtitle,
-                  );
-                },
-                itemCount: placeList.length,
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 8,
-          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -173,16 +128,73 @@ class _MyHomePageState extends State<MyHomePage> {
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
                   return HorizontalPlaceCard(
-                    id: placeList[index].id,
-                    title: placeList[index].title,
-                    imageUrl: placeList[index].imageUrl,
-                    subtitle: placeList[index].subtitle,
+                    id: horizontalPlaceList[index].id,
+                    title: horizontalPlaceList[index].title,
+                    imageUrl: horizontalPlaceList[index].imageUrl,
+                    subtitle: horizontalPlaceList[index].subtitle,
                   );
                 },
-                itemCount: placeList.length,
+                itemCount: horizontalPlaceList.length,
               ),
             ),
-          )
+          ),
+          const SizedBox(
+            height: 12,
+          ),
+          favoritePlace.isEmpty
+              ? const Text(
+                  "Try adding your favorite places!",
+                  style: TextStyle(fontSize: 18),
+                )
+              : Wrap(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.only(left: 12.0, top: 18),
+                          child: Text(
+                            'Favorites',
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 12.0, top: 18),
+                          child: InkWell(
+                            onTap: () =>
+                                Navigator.pushNamed(context, "/favorites"),
+                            child: const Text(
+                              'More',
+                              style: TextStyle(
+                                color: Colors.blue,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 18),
+                      child: SizedBox(
+                        height: 200,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            return HorizontalPlaceCard(
+                              id: favoritePlace[index].id,
+                              title: favoritePlace[index].title,
+                              imageUrl: favoritePlace[index].imageUrl,
+                              subtitle: favoritePlace[index].subtitle,
+                            );
+                          },
+                          itemCount: favoritePlace.length,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
         ],
       ),
     );

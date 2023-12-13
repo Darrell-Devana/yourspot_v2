@@ -11,7 +11,7 @@ class HorizontalPlace {
       required this.imageUrl});
 }
 
-List<HorizontalPlace> placeList = [
+List<HorizontalPlace> horizontalPlaceList = [
   HorizontalPlace(
     id: 'm1',
     title: 'Syahdan Campus',
@@ -35,4 +35,4 @@ List<HorizontalPlace> placeList = [
   ),
 ];
 
-List<HorizontalPlace> favoritePlaceList = [];
+List<HorizontalPlace> horizontalFavoritePlaceList = [];

@@ -1,5 +1,6 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:yourspot_v2/models/horizontal_place_data.dart';
 import 'package:yourspot_v2/models/vertical_place_data.dart';
 import 'package:yourspot_v2/favoriteProvider.dart';
 import 'package:provider/provider.dart';
@@ -24,17 +25,20 @@ class _PlaceDetailState extends State<PlaceDetail> {
 
   void _addToFavorite(
       String id, FavoritePlacesProvider favoritePlacesProvider) {
-    int index = favoritePlacesProvider.favoritePlaceList
+    int verticalIndex = favoritePlacesProvider.verticalFavoritePlaceList
+        .indexWhere((place) => place.id == id);
+    int horizontalIndex = favoritePlacesProvider.horizontalFavoriteList
         .indexWhere((place) => place.id == id);
 
-    if (index != -1) {
+    if (verticalIndex != -1 && horizontalIndex != -1) {
       favoritePlacesProvider.removeFavorite(id);
       favoriteIcon = const Icon(Icons.star_border);
     } else {
-      int placeIndex = placeList.indexWhere((place) => place.id == id);
+      int placeIndex = verticalPlaceList.indexWhere((place) => place.id == id);
 
       if (placeIndex != -1) {
-        favoritePlacesProvider.addFavorite(placeList[placeIndex]);
+        favoritePlacesProvider.addFavorite(
+            verticalPlaceList[placeIndex], horizontalPlaceList[placeIndex]);
         favoriteIcon = const Icon(Icons.star);
       }
     }
@@ -47,7 +51,8 @@ class _PlaceDetailState extends State<PlaceDetail> {
     final String placeId = routeArgs!['id'].toString();
     final String placeImageUrl = routeArgs['imageUrl'].toString();
 
-    final selectedPlace = placeList.firstWhere((place) => place.id == placeId);
+    final selectedPlace =
+        verticalPlaceList.firstWhere((place) => place.id == placeId);
     final mediaQuery = MediaQuery.of(context);
     final appBar = AppBar(
       backgroundColor: Theme.of(context).primaryColor,
@@ -63,7 +68,7 @@ class _PlaceDetailState extends State<PlaceDetail> {
           builder: (context, favoritePlacesProvider, child) {
             return IconButton(
               onPressed: () => _addToFavorite(placeId, favoritePlacesProvider),
-              icon: favoritePlacesProvider.isFavorite(placeId)
+              icon: favoritePlacesProvider.isFavoriteVertical(placeId)
                   ? const Icon(Icons.star)
                   : const Icon(Icons.star_border),
             );
