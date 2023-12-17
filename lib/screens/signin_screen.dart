@@ -92,40 +92,51 @@ class _MySigninScreenState extends State<MySigninScreen> {
         print("Error during registration: $e");
       }
       if (e.toString().contains('The email address is badly formatted.')) {
-        Fluttertoast.showToast(msg: "Invalid username or password");
+        Fluttertoast.showToast(
+            msg: "Invalid username or password", gravity: ToastGravity.TOP);
       }
       if (e.toString().contains('email address is already in use')) {
-        Fluttertoast.showToast(msg: "Email is already in use");
+        Fluttertoast.showToast(
+            msg: "Email is already in use", gravity: ToastGravity.TOP);
+      }
+      if (e.toString().contains('[firebase_auth/INVALID_LOGIN_CREDENTIALS]')) {
+        Fluttertoast.showToast(
+            msg: "Invalid login credentials", gravity: ToastGravity.TOP);
       }
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: null,
-      body: SafeArea(
-        child: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _logo(),
-                AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 300),
-                  child: _renderWidget(),
-                ),
-                _signInButton(),
-                const SizedBox(height: 20),
-                _richText(),
-                const SizedBox(height: 13),
-                const Divider(
-                  indent: 40,
-                  endIndent: 40,
-                ),
-                const SizedBox(height: 20),
-                _googleLogo(),
-              ],
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).requestFocus(FocusNode());
+      },
+      child: Scaffold(
+        appBar: null,
+        body: SafeArea(
+          child: Center(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _logo(),
+                  AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 300),
+                    child: _renderWidget(),
+                  ),
+                  _signInButton(),
+                  const SizedBox(height: 20),
+                  _richText(),
+                  const SizedBox(height: 13),
+                  const Divider(
+                    indent: 40,
+                    endIndent: 40,
+                  ),
+                  const SizedBox(height: 20),
+                  _googleLogo(),
+                ],
+              ),
             ),
           ),
         ),
@@ -217,9 +228,12 @@ class _MySigninScreenState extends State<MySigninScreen> {
           : () {
               if (_emailUsernameController.text.isEmpty) {
                 Fluttertoast.showToast(
-                    msg: "Please input your email or username");
+                    msg: "Please input your email or username",
+                    gravity: ToastGravity.TOP);
               } else if (_textFieldID == 2) {
-                Fluttertoast.showToast(msg: "Please input your password");
+                Fluttertoast.showToast(
+                    msg: "Please input your password",
+                    gravity: ToastGravity.TOP);
               } else {
                 _updateWidget();
               }

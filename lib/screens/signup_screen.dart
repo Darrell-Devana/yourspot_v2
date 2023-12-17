@@ -75,34 +75,40 @@ class _MySignupScreenState extends State<MySignupScreen> {
         print("Error during registration: $e");
       }
       if (e.toString().contains('The email address is badly formatted.')) {
-        Fluttertoast.showToast(msg: "Invalid username or password");
+        Fluttertoast.showToast(
+            msg: "Invalid username or password", gravity: ToastGravity.TOP);
       }
       if (e.toString().contains('email address is already in use')) {
-        // Provide feedback to the user that the email is already in use
-        Fluttertoast.showToast(msg: "Email is already in use");
+        Fluttertoast.showToast(
+            msg: "Email is already in use", gravity: ToastGravity.TOP);
       }
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: null,
-      body: SafeArea(
-        child: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _logo(), // Image
-                AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 300),
-                  child: _renderWidget(),
-                ),
-                _signupButton(),
-                const SizedBox(height: 20),
-                _richText(),
-              ],
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).requestFocus(FocusNode());
+      },
+      child: Scaffold(
+        appBar: null,
+        body: SafeArea(
+          child: Center(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _logo(), // Image
+                  AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 300),
+                    child: _renderWidget(),
+                  ),
+                  _signupButton(),
+                  const SizedBox(height: 20),
+                  _richText(),
+                ],
+              ),
             ),
           ),
         ),
@@ -121,7 +127,7 @@ class _MySignupScreenState extends State<MySignupScreen> {
         decoration: const InputDecoration(
           contentPadding: EdgeInsets.only(left: 20, top: 50, bottom: 50),
           border: OutlineInputBorder(),
-          labelText: 'Email or Username',
+          labelText: 'Email',
         ),
       ),
     );
@@ -140,7 +146,7 @@ class _MySignupScreenState extends State<MySignupScreen> {
             decoration: const InputDecoration(
               contentPadding: EdgeInsets.only(left: 20, top: 50, bottom: 50),
               border: OutlineInputBorder(),
-              labelText: 'Email or Username',
+              labelText: 'Email',
             ),
           ),
         ),
@@ -210,9 +216,11 @@ class _MySignupScreenState extends State<MySignupScreen> {
           : () {
               if (_emailUsernameController.text.isEmpty) {
                 Fluttertoast.showToast(
-                    msg: "Please input your email or username");
+                    msg: "Please input your email", gravity: ToastGravity.TOP);
               } else if (_textFieldID == 2) {
-                Fluttertoast.showToast(msg: "Please input your password");
+                Fluttertoast.showToast(
+                    msg: "Please input your password",
+                    gravity: ToastGravity.TOP);
               } else {
                 _updateWidget();
               }

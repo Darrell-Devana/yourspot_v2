@@ -102,7 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: EdgeInsets.only(left: 12.0, top: 18),
                 child: Text(
                   'Locations',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                 ),
               ),
               Padding(
@@ -156,7 +156,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           child: Text(
                             'Favorites',
                             style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
+                                fontSize: 20, fontWeight: FontWeight.w600),
                           ),
                         ),
                         Padding(
