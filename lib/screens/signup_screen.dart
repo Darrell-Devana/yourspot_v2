@@ -186,10 +186,11 @@ class _MySignupScreenState extends State<MySignupScreen> {
   }
 
   Widget _logo() {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 100),
-      child: SizedBox(
-        child: SvgPicture.asset("assets/images/MUI_Logo.svg"),
+    return SizedBox(
+      child: SvgPicture.asset(
+        "assets/images/Logo.svg",
+        height: 250,
+        width: 250,
       ),
     );
   }

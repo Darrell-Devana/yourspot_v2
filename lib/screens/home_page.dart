@@ -46,7 +46,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     style: TextStyle(color: Colors.white),
                   ),
                   Text(
-                    auth.currentUser!.displayName.toString(),
+                    auth.currentUser!.displayName.toString().isEmpty
+                        ? auth.currentUser!.email.toString()
+                        : auth.currentUser!.displayName.toString(),
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 20,

@@ -37,71 +37,77 @@ class _FavoritesPageState extends State<FavoritesPage> {
     final favoritePlacesProvider = Provider.of<FavoritePlacesProvider>(context);
     final place = favoritePlacesProvider.verticalFavoritePlaceList;
 
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).primaryColor,
-        elevation: 5,
-        title: Text(
-          widget.title,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).requestFocus(FocusNode());
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).primaryColor,
+          elevation: 5,
+          title: Text(
+            widget.title,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
           ),
-        ),
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(48.0),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8),
-            child: TextField(
-              keyboardType: TextInputType.text,
-              focusNode: focusNode,
-              decoration: InputDecoration(
-                hintText: 'Search',
-                filled: true,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                  borderSide: BorderSide.none,
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(48.0),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8),
+              child: TextField(
+                keyboardType: TextInputType.text,
+                focusNode: focusNode,
+                decoration: InputDecoration(
+                  hintText: 'Search',
+                  filled: true,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                    borderSide: BorderSide.none,
+                  ),
+                  contentPadding: const EdgeInsets.symmetric(vertical: 8.0),
+                  prefixIcon: const Icon(Icons.search),
                 ),
-                contentPadding: const EdgeInsets.symmetric(vertical: 8.0),
-                prefixIcon: const Icon(Icons.search),
+                onChanged: (value) {
+                  focusNode.requestFocus();
+                  List<VerticalPlace> filteredList = favoritePlacesProvider
+                      .verticalFavoritePlaceList
+                      .where((place) => place.title
+                          .toLowerCase()
+                          .contains(value.toLowerCase()))
+                      .toList();
+                  setState(() {
+                    filteredPlaces = filteredList;
+                  });
+                },
+                onSubmitted: (value) {
+                  focusNode.unfocus();
+                },
               ),
-              onChanged: (value) {
-                focusNode.requestFocus();
-                List<VerticalPlace> filteredList = favoritePlacesProvider
-                    .verticalFavoritePlaceList
-                    .where((place) =>
-                        place.title.toLowerCase().contains(value.toLowerCase()))
-                    .toList();
-                setState(() {
-                  filteredPlaces = filteredList;
-                });
-              },
-              onSubmitted: (value) {
-                focusNode.unfocus();
-              },
             ),
           ),
         ),
-      ),
-      body: ListView.builder(
-        itemBuilder: (context, index) {
-          return VerticalPlaceCard(
-            id: filteredPlaces.isNotEmpty
-                ? filteredPlaces[index].id
-                : place[index].id,
-            title: filteredPlaces.isNotEmpty
-                ? filteredPlaces[index].title
-                : place[index].title,
-            imageUrl: filteredPlaces.isNotEmpty
-                ? filteredPlaces[index].imageUrl
-                : place[index].imageUrl,
-            availability: filteredPlaces.isNotEmpty
-                ? filteredPlaces[index].availability
-                : place[index].availability,
-          );
-        },
-        itemCount:
-            filteredPlaces.isNotEmpty ? filteredPlaces.length : place.length,
+        body: ListView.builder(
+          itemBuilder: (context, index) {
+            return VerticalPlaceCard(
+              id: filteredPlaces.isNotEmpty
+                  ? filteredPlaces[index].id
+                  : place[index].id,
+              title: filteredPlaces.isNotEmpty
+                  ? filteredPlaces[index].title
+                  : place[index].title,
+              imageUrl: filteredPlaces.isNotEmpty
+                  ? filteredPlaces[index].imageUrl
+                  : place[index].imageUrl,
+              availability: filteredPlaces.isNotEmpty
+                  ? filteredPlaces[index].availability
+                  : place[index].availability,
+            );
+          },
+          itemCount:
+              filteredPlaces.isNotEmpty ? filteredPlaces.length : place.length,
+        ),
       ),
     );
   }
